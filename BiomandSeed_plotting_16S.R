@@ -73,9 +73,12 @@ if (g == "BIOM") {
   
   ## Organizing the table and changing the titles of the columns
   colnames(taxonomy) = c("Kingdom","Phylum","Class","Order","Family","Genus","Species")
-  taxonomy_info1 = as.data.frame(taxonomy, byrow = T, fill = "unassigned")
-  taxonomy <- taxonomy_info1
-  
+  v <- 0
+  for (v in 1:7) {
+    
+    taxonomy[,v] <- gsub("^$", "Unassigned", taxonomy[,v])
+  }
+ 
   library("phyloseq")
   
   rltv = sweep(otucounts, 2, colSums(otucounts), "/")
